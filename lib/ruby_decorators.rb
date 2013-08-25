@@ -1,11 +1,22 @@
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
 require "ruby_decorators/version"
-require "ruby_decorator"
+require "ruby_decorators/interface"
+require "ruby_decorator" 
 
 module RubyDecorators
   class Stack
     def self.all
       @all ||= []
     end
+  end
+
+  def self.decorate dec
+    RubyDecorators::Stack.all << dec
+  end
+
+  def decorate dec
+    RubyDecorators::Stack.all << dec
   end
 
   def method_added(method_name)

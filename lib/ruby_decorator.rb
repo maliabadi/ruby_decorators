@@ -1,9 +1,10 @@
 class RubyDecorator
-  def self.+@
+
+  def self.decorate
     RubyDecorators::Stack.all << self
   end
 
-  def +@
+  def decorate
     RubyDecorators::Stack.all << self
   end
 end
