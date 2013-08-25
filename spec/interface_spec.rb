@@ -1,24 +1,24 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-class Hi < RubyDecorator
+class Hi < RubyDecorators::Decorator
   def call(this, *args, &blk)
     this.call(*args, &blk).sub('hello', 'hi')
   end
 end
 
-class Batman < RubyDecorator
+class Batman < RubyDecorators::Decorator
   def call(this, *args, &blk)
     this.call(*args, &blk).sub('world', 'batman')
   end
 end
 
-class BatMan < RubyDecorator
+class BatMan < RubyDecorators::Decorator
   def call(this, *args, &blk)
     this.call(*args, &blk)
   end
 end
 
-class Dummy < RubyDecorators::DecoratorInterface
+class Dummy < RubyDecorators::Interface
   
   use Batman, BatMan
   named :dummy
@@ -38,7 +38,7 @@ class Dummy < RubyDecorators::DecoratorInterface
   end
 end
 
-class MyClient < RubyDecorators::DecoratorInterface
+class MyClient < RubyDecorators::Interface
 
   use Batman, BatMan
   named :dummy
@@ -54,7 +54,7 @@ class MyClient < RubyDecorators::DecoratorInterface
 
 end
 
-describe RubyDecorators::DecoratorInterface do
+describe RubyDecorators::Interface do
 
   describe "add decorator" do
     

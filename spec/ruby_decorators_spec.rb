@@ -1,25 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'minitest/autorun'
 
-class DummyDecorator < RubyDecorator
+class DummyDecorator < RubyDecorators::Decorator
   def call(this)
     'I should never be called'
   end
 end
 
-class Hi < RubyDecorator
+class Hi < RubyDecorators::Decorator
   def call(this, *args, &blk)
     this.call(*args, &blk).sub('hello', 'hi')
   end
 end
 
-class Batman < RubyDecorator
+class Batman < RubyDecorators::Decorator
   def call(this, *args, &blk)
     this.call(*args, &blk).sub('world', 'batman')
   end
 end
 
-class Catwoman < RubyDecorator
+class Catwoman < RubyDecorators::Decorator
   def initialize(*args)
     @args = args.any? ? args : ['catwoman']
   end
