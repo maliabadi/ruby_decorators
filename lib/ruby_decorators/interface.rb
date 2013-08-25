@@ -32,7 +32,6 @@ module RubyDecorators
               tr("-", "_").
               downcase.
               to_sym
-              puts fmt
             self.decorators[fmt] = dec
           end
           decs.each &append
