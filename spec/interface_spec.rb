@@ -6,9 +6,11 @@ class Hi < RubyDecorators::Decorator
   end
 end
 
-class Batman < RubyDecorators::Decorator
-  def call(this, *args, &blk)
-    this.call(*args, &blk).sub('world', 'batman')
+module Foo
+  class Batman < RubyDecorators::Decorator
+    def call(this, *args, &blk)
+      this.call(*args, &blk).sub('world', 'batman')
+    end
   end
 end
 
@@ -20,14 +22,14 @@ end
 
 class Dummy < RubyDecorators::Interface
   
-  use Batman, BatMan
+  use Foo::Batman, BatMan
   named :dummy
 
   def initialize
     @greeting = 'hello world'
   end
   
-  dummy Batman
+  dummy Foo::Batman
   def hello_world
     @greeting
   end
@@ -40,7 +42,7 @@ end
 
 class MyClient < RubyDecorators::Interface
 
-  use Batman, BatMan
+  use Foo::Batman, BatMan
   named :dummy
 
   def initialize
@@ -60,7 +62,7 @@ describe RubyDecorators::Interface do
     
     it "registers non-camel-cased classes as one word" do
       Dummy.decorators.keys.include?(:batman).must_equal true
-      Dummy.decorators[:batman].must_equal Batman
+      Dummy.decorators[:batman].must_equal Foo::Batman
     end
 
     it "registers camel-cased classes as underscored symbols" do
